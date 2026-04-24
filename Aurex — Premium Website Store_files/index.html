@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minelet — Premium Website Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+[data-theme="dark"] {
+  --bg: #0a0908; --bg2: #0f0e0c;
+  --surface: rgba(255,255,255,0.04); --surface2: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
+  --text: #f0ece4; --text2: rgba(240,236,228,0.5); --text3: rgba(240,236,228,0.25);
+  --accent: #c8a96e; --accent2: #a07848;
+  --card: rgba(255,255,255,0.04); --nav-bg: rgba(10,9,8,0.92);
+  --elite-bg: #f0ece4; --elite-text: #0a0908; --elite-muted: rgba(10,9,8,0.5);
+  --elite-btn: #0a0908; --elite-btn-text: #f0ece4;
+}
+[data-theme="light"] {
+  --bg: #ffffff; --bg2: #f8f7f5;
+  --surface: rgba(0,0,0,0.02); --surface2: rgba(0,0,0,0.05);
+  --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.22);
+  --text: #1a1814; --text2: #a09a92; --text3: #ccc6bc;
+  --accent: #c8a96e; --accent2: #8b6f47;
+  --card: #ffffff; --nav-bg: rgba(255,255,255,0.93);
+  --elite-bg: #1a1814; --elite-text: #f0ece4; --elite-muted: rgba(240,236,228,0.5);
+  --elite-btn: #c8a96e; --elite-btn-text: #ffffff;
+}
+
+body {
+  font-family: 'Fredoka', 'Montserrat', sans-serif;
+  background: var(--bg); color: var(--text);
+  overflow-x: hidden; transition: background 0.4s, color 0.4s;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 5rem;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s, border-color 0.4s;
+}
+.logo {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.85rem; font-weight: 700;
+  letter-spacing: 0.18em; color: #FFD700;
+  text-decoration: none; transition: color 0.3s; flex-shrink: 0;
+}
+.logo span { color: #FFD700; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text2);
+  font-size: 0.77rem; letter-spacing: 0.1em;
+  text-transform: uppercase; transition: color 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-btn {
+  background: var(--accent); color: #fff;
+  padding: 0.6rem 1.6rem; border: none;
+  font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 0.76rem;
+  letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+  border-radius: 2px; transition: all 0.25s;
+  text-decoration: none; display: inline-block; white-space: nowrap; flex-shrink: 0;
+}
+.nav-btn:hover { background: var(--accent2); }
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px; z-index: 301;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text); border-radius: 2px; transition: all 0.3s;
+}
+.nav-mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: var(--nav-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  z-index: 299; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2.8rem;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  font-size: 1.6rem; font-family: 'Fredoka', 'Montserrat', sans-serif;
+  color: var(--text); text-decoration: none; letter-spacing: 0.12em; transition: color 0.2s;
+}
+.nav-mobile-menu a:hover { color: var(--accent); }
+.nav-mobile-menu .nav-btn { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 0.82rem; padding: 0.9rem 2.8rem; }
+.nav-close {
+  position: absolute; top: 1.4rem; right: 1.8rem;
+  background: none; border: none; font-size: 1.6rem;
+  color: var(--text2); cursor: pointer; line-height: 1; transition: color 0.2s;
+}
+.nav-close:hover { color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  height: 100vh; height: 100svh; min-height: 640px;
+  display: flex; align-items: center; overflow: hidden;
+  padding-top: 5rem; /* clear fixed nav */
+  padding-bottom: 2rem;
+}
+.hero-content {
+  position: relative; z-index: 10;
+  padding: 0 6rem; max-width: 860px; width: 100%;
+}
+
+.vbg { position: absolute; inset: 0; z-index: 0; }
+.vbg video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.voverlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.voverlay::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.22) 50%,
+    rgba(0,0,0,0.04) 80%,
+    transparent 100%);
+}
+
+/* Hero text — hidden; JS adds .revealed */
+.eyebrow {
+  display: flex; align-items: center; gap: 0.9rem;
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.6rem;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.eyebrow::before { content: ''; width: 36px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.hero h1 {
+  font-family: 'Montserrat', 'Fredoka', sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4.8rem);
+  font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; color: #ffffff;
+  margin-bottom: 1.8rem;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.95s ease 0.1s, transform 0.95s ease 0.1s;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.3);
+  overflow: hidden; word-break: break-word;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1rem; color: rgba(255,255,255,0.72);
+  line-height: 1.75; max-width: 460px; margin-bottom: 2.8rem; font-weight: 700;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.95s ease 0.22s, transform 0.95s ease 0.22s;
+}
+.hero-btns {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.95s ease 0.34s, transform 0.95s ease 0.34s;
+}
+.hero-content.revealed .eyebrow,
+.hero-content.revealed h1,
+.hero-content.revealed .hero-sub,
+.hero-content.revealed .hero-btns { opacity: 1; transform: translateY(0); }
+
+.btn-gold {
+  background: var(--accent); color: #fff;
+  padding: 1rem 2.6rem; font-family: 'Fredoka', 'Montserrat', sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  border: none; cursor: pointer; border-radius: 2px;
+  transition: all 0.3s; text-decoration: none; display: inline-block; white-space: nowrap;
+}
+.btn-gold:hover { background: var(--accent2); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: #fff;
+  padding: 1rem 2.6rem; font-family: 'Fredoka', 'Montserrat', sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.42); cursor: pointer; border-radius: 2px;
+  transition: all 0.3s; text-decoration: none; display: inline-block; white-space: nowrap;
+}
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+.scroll-arrow {
+  position: absolute; bottom: 8rem; left: 6rem; z-index: 10;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+}
+.scroll-arrow.revealed { opacity: 1; transform: translateY(0); }
+.scroll-arrow span { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+.stats-bar {
+  position: static;
+  display: flex; flex-wrap: nowrap;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  width: 100%;
+}
+.stat-item { flex: 1 1 0; padding: 1.3rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.06); min-width: 0; text-align: center; }
+.stat-item:last-child { border-right: none; }
+.stat-n { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1; white-space: nowrap; }
+.stat-l { font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-top: 0.25rem; white-space: nowrap; }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: var(--bg2); padding: 1.4rem 5rem;
+  display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border); transition: background 0.4s, border-color 0.4s;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-size: 0.74rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text2); transition: color 0.2s; white-space: nowrap;
+}
+.trust-item:hover { color: var(--text); }
+.tdot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+/* ── PRICING ── */
+#pricing {
+  padding: 0; background: var(--bg2); transition: background 0.4s;
+  position: relative; overflow: hidden; min-height: 80vh;
+  display: flex; flex-direction: column; justify-content: center;
+}
+#pricing .vbg { position: absolute; inset: 0; z-index: 0; }
+#pricing .vbg video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+#pricing .voverlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgba(0,0,0,0.12); }
+#pricing .voverlay::after { display: none; }
+.pricing-content {
+  position: relative; z-index: 10;
+  padding: 6rem 5rem;
+}
+/* Text colors over video bg */
+#pricing .sec-title { color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+#pricing .sec-eyebrow { color: var(--accent); }
+#pricing .sec-eyebrow::before { background: var(--accent); }
+#pricing .sec-note { color: rgba(255,255,255,0.75); }
+
+/* Tiers — frosted glass so video shows through lightly */
+#pricingGrid .tier {
+  background: rgba(255,255,255,0.82) !important;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255,255,255,0.5) !important;
+}
+#pricingGrid .tier:hover {
+  background: rgba(255,255,255,0.92) !important;
+}
+#pricingGrid .tier-elite {
+  background: rgba(26,24,20,0.88) !important;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+#pricingGrid .tier-elite:hover {
+  background: rgba(26,24,20,0.95) !important;
+  filter: none;
+}
+.pricing-grid { border-color: rgba(255,255,255,0.3); }
+
+/* Tiers — hidden initially, JS reveals them */
+#pricingGrid {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.95s ease, transform 0.95s ease;
+}
+#pricingGrid.tier-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; gap: 2rem; }
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.sec-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.sec-title { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; line-height: 1.1; color: var(--text); word-break: break-word; }
+.sec-note { font-size: 0.84rem; color: var(--text2); max-width: 250px; text-align: right; line-height: 1.7; flex-shrink: 0; }
+.pricing-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr 0.9fr; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.tier {
+  padding: 2.5rem 2rem; border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; position: relative; background: var(--card);
+  transition: background 0.4s, border-color 0.4s;
+}
+.tier:hover { background: var(--surface2); }
+.tier:last-child { border-right: none; }
+.tier-elite { background: var(--elite-bg) !important; padding: 3rem 2.2rem; }
+.tier-elite:hover { filter: brightness(1.04); }
+.t-tag { font-size: 0.61rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--accent); margin-bottom: 0.45rem; }
+.t-name { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; color: #FFD700; -webkit-text-stroke: 0.5px #a07820; paint-order: stroke fill; transition: color 0.4s; }
+.tier-elite .t-name { color: #FFD700; -webkit-text-stroke: 0.5px #a07820; }
+.t-line { font-size: 0.76rem; color: var(--text2); margin-bottom: 1.8rem; line-height: 1.55; transition: color 0.4s; }
+.tier-elite .t-line { color: var(--elite-muted); }
+.t-price { display: flex; align-items: baseline; gap: 0.1rem; margin-bottom: 1.8rem; }
+.t-cur { font-size: 0.9rem; color: #FFD700; -webkit-text-stroke: 0.20px #a07820; paint-order: stroke fill; align-self: flex-start; margin-top: 0.45rem; transition: color 0.4s; }
+.tier-elite .t-cur { color: #FFD700; -webkit-text-stroke: 0.20px #a07820; }
+.t-amt { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 2.6rem; font-weight: 700; line-height: 1; color: #FFD700; -webkit-text-stroke: 0.7px #a07820; paint-order: stroke fill; transition: color 0.4s; }
+.tier-elite .t-amt { color: #FFD700; -webkit-text-stroke: 0.7px #a07820; }
+.t-per { font-size: 0.73rem; color: var(--text3); margin-left: 0.2rem; transition: color 0.4s; }
+.tier-elite .t-per { color: var(--elite-muted); }
+.t-div { height: 1px; background: var(--border); margin-bottom: 1.8rem; transition: background 0.4s; }
+.tier-elite .t-div { background: rgba(255,255,255,0.15); }
+[data-theme="dark"] .tier-elite .t-div { background: rgba(240,236,228,0.12); }
+.t-feats { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 0.72rem; }
+.t-feats li { font-size: 0.8rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.5; transition: color 0.4s; }
+.tier-elite .t-feats li { color: var(--elite-muted); }
+.chk { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.chk::after { content: ''; width: 5px; height: 3px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); }
+.t-btn {
+  width: 100%; margin-top: 2rem; border: 1px solid var(--border2); background: transparent;
+  color: var(--text); padding: 0.85rem; font-family: 'Fredoka', 'Montserrat', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  border-radius: 2px; transition: all 0.25s;
+}
+.t-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tier-elite .t-btn { background: var(--elite-btn); color: var(--elite-btn-text); border-color: var(--elite-btn); }
+.tier-elite .t-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.pop-badge {
+  position: absolute; top: -1px; right: 1.5rem;
+  background: var(--accent); color: #fff; font-size: 0.58rem; letter-spacing: 0.14em;
+  text-transform: uppercase; font-weight: 700; padding: 0.28rem 0.75rem; border-radius: 0 0 4px 4px;
+}
+
+/* ── APPS ── */
+#apps { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; background: var(--bg); transition: background 0.4s; }
+.apps-l {
+  padding: 7rem 5rem 7rem 6rem; display: flex; flex-direction: column; justify-content: center;
+  border-right: 1px solid var(--border); transition: border-color 0.4s;
+}
+.apps-eye {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.5rem; font-weight: 700;
+}
+.apps-eye::before { content: ''; width: 32px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.apps-title { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: clamp(2.4rem, 4.5vw, 5rem); font-weight: 700; line-height: 1; color: #FFD700; margin-bottom: 1.2rem; word-break: break-word; }
+.apps-title em { font-style: italic; color: #FFD700; }
+.apps-desc { font-size: 0.97rem; color: var(--text2); line-height: 1.75; max-width: 400px; margin-bottom: 3rem; font-weight: 700; }
+.nf { display: flex; max-width: 400px; width: 100%; }
+.ni {
+  flex: 1; min-width: 0; background: var(--surface);
+  border: 1px solid var(--border); border-right: none;
+  color: var(--text); padding: 0.9rem 1.2rem;
+  font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 0.85rem;
+  border-radius: 2px 0 0 2px; outline: none; transition: all 0.3s;
+}
+.ni::placeholder { color: var(--text3); }
+.ni:focus { border-color: var(--accent); }
+.nb {
+  background: var(--accent); color: #fff; border: none; padding: 0.9rem 1.5rem;
+  font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 0.74rem; letter-spacing: 0.12em;
+  text-transform: uppercase; cursor: pointer;
+  border-radius: 0 2px 2px 0; transition: background 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.nb:hover { background: var(--accent2); }
+.apps-r { padding: 5rem 4rem; display: flex; align-items: center; justify-content: center; background: var(--bg2); transition: background 0.4s; }
+.apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; width: 100%; max-width: 380px; }
+.acard { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 1.3rem; transition: all 0.3s; cursor: default; }
+.acard:hover { border-color: var(--accent); transform: translateY(-3px); background: var(--surface2); }
+.aicon { width: 38px; height: 38px; background: rgba(200,169,110,0.1); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ai { width: 16px; height: 16px; background: var(--accent); border-radius: 3px; }
+.aname { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.adesc { font-size: 0.72rem; color: var(--text2); line-height: 1.5; }
+.asoon { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-top: 0.7rem; font-weight: 700; }
+
+/* ── FOOTER ── */
+#info {
+  padding: 5rem; background: var(--bg2);
+  display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 3rem; border-top: 1px solid var(--border);
+  transition: background 0.4s, border-color 0.4s;
+}
+.brand { font-family: 'Fredoka', sans-serif; font-size: 1.85rem; font-weight: 700; letter-spacing: 0.18em; color: #FFD700; margin-bottom: 0.8rem; }
+.brand span { color: #FFD700; }
+.bdesc { font-size: 0.82rem; color: var(--text2); line-height: 1.75; max-width: 230px; }
+.ctitle { font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--text); margin-bottom: 1.3rem; }
+.clinks { list-style: none; display: flex; flex-direction: column; gap: 0.72rem; }
+.clinks a { font-size: 0.82rem; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+.clinks a:hover { color: var(--accent); }
+.fbar {
+  padding: 1.5rem 5rem; background: var(--bg);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s, border-color 0.4s;
+}
+.fcopy { font-size: 0.77rem; color: var(--text3); }
+.ftag { font-family: 'Fredoka', 'Montserrat', sans-serif; font-size: 0.92rem; color: var(--text2); font-style: italic; }
+
+/* ── REVEAL ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ≤ 900px — landscape phones / small tablets */
+@media (max-width: 900px) and (min-width: 769px) {
+  .hero h1 { font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.1; }
+  .hero-content { padding: 0 2.5rem; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════ */
+
+/* ≤ 1200px */
+@media (max-width: 1200px) {
+  nav { padding: 1rem 3rem; }
+  .hero-content { padding: 0 4rem; }
+  .scroll-arrow { left: 4rem; }
+  .trust-bar { padding: 1.4rem 3rem; gap: 2.5rem; }
+  #pricing { min-height: auto; }
+  .pricing-content { padding: 6rem 3rem; }
+  #apps { min-height: auto; }
+  .apps-l { padding: 6rem 3rem 6rem 4rem; }
+  #info { padding: 5rem 3rem; }
+  .fbar { padding: 1.5rem 3rem; }
+}
+
+/* ≤ 1024px */
+@media (max-width: 1024px) {
+  nav { padding: 1rem 2.5rem; }
+  .nav-links { gap: 1.6rem; }
+  .hero { padding-top: 5rem; padding-bottom: 7rem; }
+  .hero-content { padding: 0 3rem; max-width: 100%; }
+  .hero h1 { font-size: clamp(2rem, 4.5vw, 4rem); line-height: 1.1; }
+  .scroll-arrow { left: 3rem; bottom: 6.5rem; }
+  .stat-item { padding: 1rem; }
+  .stat-n { font-size: 1.55rem; }
+  .trust-bar { padding: 1.3rem 2rem; gap: 2rem; }
+  .pricing-content { padding: 5rem 2.5rem; }
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .tier:nth-child(2) { border-right: none; }
+  .tier:nth-child(3) { border-top: 1px solid var(--border); }
+  .tier:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+  .tier-elite { padding: 2.5rem 2rem; }
+  #apps { grid-template-columns: 1fr; min-height: auto; }
+  .apps-l { padding: 5rem 3rem; border-right: none; border-bottom: 1px solid var(--border); }
+  .apps-r { padding: 4rem 3rem; }
+  .apps-grid { max-width: 100%; }
+  #info { padding: 4rem 2.5rem; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  #info > div:first-child { grid-column: 1 / -1; }
+  .bdesc { max-width: 100%; }
+  .fbar { padding: 1.5rem 2.5rem; }
+}
+
+/* ≤ 768px */
+@media (max-width: 768px) {
+  nav { padding: 0.9rem 1.5rem; }
+  .nav-links, .nav-btn { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero — center content, give room above and below */
+  .hero {
+    height: 100svh; min-height: 600px;
+    align-items: center;
+    padding-top: 5rem;   /* clear nav */
+    padding-bottom: 2rem; /* no stats bar offset needed */
+  }
+  .vbg video { object-position: center 20%; }
+  .hero-content { padding: 0 1.5rem; max-width: 100%; }
+  .hero h1 {
+    font-size: clamp(1.9rem, 7.5vw, 3rem);
+    line-height: 1.12;
+    margin-bottom: 1rem;
+  }
+  .hero-sub { font-size: 0.88rem; max-width: 100%; margin-bottom: 1.8rem; }
+  .hero-btns { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+  .btn-gold, .btn-outline { text-align: center; padding: 0.85rem 2rem; width: 100%; max-width: 300px; }
+  .scroll-arrow { display: none; }
+
+  /* stats always horizontal */
+  .stats-bar { flex-wrap: nowrap; }
+  .stat-item { flex: 1 1 0; padding: 0.85rem 0.6rem; }
+  .stat-item:nth-child(5) { flex: 1 1 0; border-right: none; }
+  .stat-n { font-size: 1.4rem; white-space: normal; }
+  .stat-l { font-size: 0.6rem; white-space: normal; word-break: break-word; }
+
+  .trust-bar { padding: 1.1rem 1.5rem; gap: 1rem; justify-content: flex-start; }
+  .trust-item { font-size: 0.67rem; }
+
+  .pricing-content { padding: 3.5rem 1.5rem; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: 2.5rem; }
+  .sec-note { text-align: left; max-width: 100%; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .tier { border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+  .tier:last-child { border-bottom: none !important; }
+  .tier-elite { padding: 2.2rem 1.6rem; }
+
+  #apps { grid-template-columns: 1fr; min-height: auto; }
+  .apps-l { padding: 3.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+  .apps-title { font-size: clamp(2.2rem, 9vw, 3.8rem); }
+  .apps-desc { max-width: 100%; font-size: 0.9rem; }
+  .nf { flex-direction: column; gap: 0.5rem; max-width: 100%; }
+  .ni { border-right: 1px solid var(--border) !important; border-radius: 2px; }
+  .nb { border-radius: 2px; width: 100%; text-align: center; }
+  .apps-r { padding: 3rem 1.5rem; }
+  .apps-grid { max-width: 100%; }
+
+  #info { padding: 3rem 1.5rem; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .fbar { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  .ftag { font-size: 0.84rem; }
+}
+
+/* ≤ 480px */
+@media (max-width: 480px) {
+  nav { padding: 0.85rem 1.2rem; }
+  .logo { font-size: 1.5rem; }
+  .hero { padding-top: 4.5rem; padding-bottom: 5.5rem; min-height: 580px; }
+  .hero h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); line-height: 1.14; }
+  .hero-sub { font-size: 0.84rem; }
+  .btn-gold, .btn-outline { max-width: 100%; }
+  .stat-item:nth-child(4) { border-right: none; }
+  .stat-n { font-size: 1.25rem; }
+  .stat-l { font-size: 0.58rem; letter-spacing: 0.06em; }
+  .trust-item { font-size: 0.62rem; }
+  .pricing-content { padding: 3rem 1.2rem; }
+  .t-amt { font-size: 2.6rem; }
+  .apps-l { padding: 3rem 1.2rem; }
+  .apps-title { font-size: clamp(2rem, 10vw, 3rem); line-height: 1.05; }
+  .apps-r { padding: 2.5rem 1.2rem; }
+  .apps-grid { gap: 0.8rem; }
+  .acard { padding: 1.2rem 1rem; }
+  #info { padding: 2.5rem 1.2rem; grid-template-columns: 1fr; }
+  #info > div:first-child { grid-column: auto; }
+  .fbar { padding: 1rem 1.2rem; }
+}
+
+/* ≤ 360px */
+@media (max-width: 360px) {
+  .hero h1 { font-size: clamp(1.5rem, 9vw, 2rem); line-height: 1.16; }
+  .apps-grid { grid-template-columns: 1fr; }
+  .stats-bar { flex-wrap: nowrap; overflow-x: auto; }
+  .stat-item { flex: 0 0 auto; min-width: 80px; border-right: none; padding: 0.7rem 0.5rem; }
+  .stat-n { font-size: 1.15rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Minelet</a>
+  <ul class="nav-links">
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#info">About</a></li>
+    <li><a href="#info">Contact</a></li>
+  </ul>
+  <a href="#pricing" class="nav-btn">Get Started</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <button class="nav-close" id="navClose">✕</button>
+  <a href="#pricing" class="nav-mobile-link">Pricing</a>
+  <a href="#apps" class="nav-mobile-link">Apps</a>
+  <a href="#info" class="nav-mobile-link">About</a>
+  <a href="#info" class="nav-mobile-link">Contact</a>
+  <a href="#pricing" class="nav-btn">Get Started</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="vbg">
+    <video id="heroVideo" muted="" playsinline="" preload="auto">
+      <source src="z.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="voverlay"></div>
+
+  <div class="hero-content">
+    <p class="eyebrow">Minelet · Premium Website Store</p>
+    <h1>Websites built<br>for those who<br>demand <em>the finest.</em></h1>
+    <p class="hero-sub">Minelet delivers hand-crafted websites — from minimal and clean to rich and immersive. Every tier is built with precision, purpose, and presence.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-gold">View Packages</a>
+      <a href="#apps" class="btn-outline">See What's Coming</a>
+    </div>
+  </div>
+
+  <div class="scroll-arrow" id="scrollArrow">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</div>
+
+<!-- TRUST -->
+<div class="trust-bar reveal visible">
+  <div class="trust-item"><div class="tdot"></div>100% Custom Code</div>
+  <div class="trust-item"><div class="tdot"></div>No Templates Ever</div>
+  <div class="trust-item"><div class="tdot"></div>Mobile First</div>
+  <div class="trust-item"><div class="tdot"></div>Free Hosting Guidance</div>
+  <div class="trust-item"><div class="tdot"></div>Secure &amp; Fast by Default</div>
+  <div class="trust-item"><div class="tdot"></div>Full Source Ownership</div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <!-- op.mp4 — full-section cover, same structure as z.mp4 in hero -->
+  <div class="vbg" id="pricingVbg">
+    <video id="pricingVideo" muted playsinline preload="auto">
+      <source src="op.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="voverlay"></div>
+
+  <!-- section content sits above video -->
+  <div class="pricing-content" id="pricingContent">
+  <div class="sec-head">
+    <div>
+      <p class="sec-eyebrow">Our Packages</p>
+      <h2 class="sec-title">Four tiers.<br>One standard.</h2>
+    </div>
+    <p class="sec-note">All packages include source files, full ownership transfer, and a 7-day satisfaction window.</p>
+  </div>
+  <div class="pricing-grid" id="pricingGrid">
+    <div class="tier tier-elite">
+      <div class="t-tag">Most Premium</div>
+      <div class="t-name">Elite</div>
+      <div class="t-line">The absolute best we offer — no limits, no compromises, no templates.</div>
+      <div class="t-price"><span class="t-cur">$</span><span class="t-amt">299</span><span class="t-per">one-time</span></div>
+      <div class="t-div"></div>
+      <ul class="t-feats">
+        <li><span class="chk"></span>Fully bespoke design from scratch</li>
+        <li><span class="chk"></span>Unlimited pages &amp; sections</li>
+        <li><span class="chk"></span>Custom animations &amp; interactions</li>
+        <li><span class="chk"></span>E-commerce ready</li>
+        <li><span class="chk"></span>Priority 24h support</li>
+        <li><span class="chk"></span>1-year free revisions</li>
+        <li><span class="chk"></span>SEO + Core Web Vitals optimized</li>
+      </ul>
+      <button class="t-btn">Order Elite →</button>
+    </div>
+    <div class="tier" style="position:relative">
+      <div class="pop-badge">Popular</div>
+      <div class="t-tag">Best Value</div>
+      <div class="t-name">Hero</div>
+      <div class="t-line">Bold, polished, and built to impress clients and customers.</div>
+      <div class="t-price"><span class="t-cur">$</span><span class="t-amt">149</span><span class="t-per">one-time</span></div>
+      <div class="t-div"></div>
+      <ul class="t-feats">
+        <li><span class="chk"></span>Custom design — up to 6 pages</li>
+        <li><span class="chk"></span>Responsive layout</li>
+        <li><span class="chk"></span>Smooth animations</li>
+        <li><span class="chk"></span>Contact form integration</li>
+        <li><span class="chk"></span>3 revisions included</li>
+        <li><span class="chk"></span>48h delivery</li>
+      </ul>
+      <button class="t-btn">Order Hero →</button>
+    </div>
+    <div class="tier">
+      <div class="t-tag">Clean &amp; Lean</div>
+      <div class="t-name">Simple</div>
+      <div class="t-line">Crisp, minimal, straight to the point. Nothing wasted.</div>
+      <div class="t-price"><span class="t-cur">$</span><span class="t-amt">79</span><span class="t-per">one-time</span></div>
+      <div class="t-div"></div>
+      <ul class="t-feats">
+        <li><span class="chk"></span>Up to 3 pages</li>
+        <li><span class="chk"></span>Clean minimal design</li>
+        <li><span class="chk"></span>Mobile responsive</li>
+        <li><span class="chk"></span>1 revision included</li>
+        <li><span class="chk"></span>72h delivery</li>
+      </ul>
+      <button class="t-btn">Order Simple →</button>
+    </div>
+    <div class="tier">
+      <div class="t-tag">Best Entry Price</div>
+      <div class="t-name">Cozy</div>
+      <div class="t-line">Warm, friendly, and perfectly functional. Perfect to start.</div>
+      <div class="t-price"><span class="t-cur">$</span><span class="t-amt">39</span><span class="t-per">one-time</span></div>
+      <div class="t-div"></div>
+      <ul class="t-feats">
+        <li><span class="chk"></span>1-page website</li>
+        <li><span class="chk"></span>Warm, personal design</li>
+        <li><span class="chk"></span>Mobile ready</li>
+        <li><span class="chk"></span>24h fast delivery</li>
+      </ul>
+      <button class="t-btn">Order Cozy →</button>
+    </div>
+  </div>
+  </div>
+</section>
+<section id="apps">
+  <div class="apps-l reveal visible">
+    <p class="apps-eye">What's Next</p>
+    <h2 class="apps-title">Something<br><em>big</em> is<br>coming.</h2>
+    <p class="apps-desc">We're building a suite of tools designed to supercharge your web presence. From analytics dashboards to AI-powered builders — the Minelet Apps ecosystem is on its way.</p>
+    <div class="nf">
+      <input class="ni" type="email" placeholder="your@email.com">
+      <button class="nb">Notify Me</button>
+    </div>
+  </div>
+  <div class="apps-r">
+    <div class="apps-grid reveal visible">
+      <div class="acard">
+        <div class="aicon"><div class="ai" style="border-radius:50%"></div></div>
+        <div class="aname">Analytics</div>
+        <div class="adesc">Track visitors, conversions &amp; growth in real time.</div>
+        <div class="asoon">Coming Soon</div>
+      </div>
+      <div class="acard">
+        <div class="aicon"><div class="ai" style="transform:rotate(45deg);border-radius:2px"></div></div>
+        <div class="aname">Site Builder</div>
+        <div class="adesc">AI-assisted drag-and-drop editor for everyone.</div>
+        <div class="asoon">In Dev</div>
+      </div>
+      <div class="acard">
+        <div class="aicon"><div class="ai" style="border-radius:50% 0 50% 0"></div></div>
+        <div class="aname">SEO Studio</div>
+        <div class="adesc">Rank faster with smart, automated SEO tools.</div>
+        <div class="asoon">Coming Soon</div>
+      </div>
+      <div class="acard">
+        <div class="aicon"><div class="ai" style="clip-path:polygon(50% 0%,100% 100%,0% 100%);border-radius:0"></div></div>
+        <div class="aname">Client Portal</div>
+        <div class="adesc">Manage projects, files &amp; invoices in one place.</div>
+        <div class="asoon">Q3 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-n">300+</div><div class="stat-l">Sites Delivered</div></div>
+  <div class="stat-item"><div class="stat-n">4.9 ★</div><div class="stat-l">Average Rating</div></div>
+  <div class="stat-item"><div class="stat-n">48h</div><div class="stat-l">Avg Turnaround</div></div>
+  <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Custom Code</div></div>
+  <div class="stat-item"><div class="stat-n">7-Day</div><div class="stat-l">Satisfaction Window</div></div>
+</div>
+
+<!-- INFO -->
+<div id="info" class="reveal visible">
+  <div>
+    <div class="brand">Minelet</div>
+    <p class="bdesc">A premium website studio dedicated to craft, quality, and speed. Every website we build is a statement.</p>
+  </div>
+  <div>
+    <div class="ctitle">Services</div>
+    <ul class="clinks">
+      <li><a href="#">Website Design</a></li>
+      <li><a href="#">Landing Pages</a></li>
+      <li><a href="#">E-commerce</a></li>
+      <li><a href="#">Redesigns</a></li>
+      <li><a href="#">Maintenance</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="ctitle">Company</div>
+    <ul class="clinks">
+      <li><a href="#">About Minelet</a></li>
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Testimonials</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="ctitle">Support</div>
+    <ul class="clinks">
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Refund Policy</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="fbar">
+  <span class="fcopy">© 2025 Minelet. All rights reserved.</span>
+  <span class="ftag">Built with precision. Delivered with care.</span>
+</div>
+
+<script>
+// ── HAMBURGER ──
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+const navClose = document.getElementById('navClose');
+hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+navClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'))
+);
+
+// ── SCROLL REVEAL ──
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ════════════════════════════════════════════════════════
+// HERO VIDEO (z.mp4)
+// — plays on open/load, replays on scroll back or click
+// — text slides in 3s before video ends; hides & re-slides on replay
+// ════════════════════════════════════════════════════════
+(function() {
+  const vid = document.getElementById('heroVideo');
+  const heroContent = document.querySelector('.hero-content');
+  const scrollArrow = document.getElementById('scrollArrow');
+  if (!vid) { heroContent && heroContent.classList.add('revealed'); return; }
+
+  vid.muted = true; vid.volume = 0; vid.loop = false;
+
+  function hideHero() {
+    heroContent && heroContent.classList.remove('revealed');
+    scrollArrow && scrollArrow.classList.remove('revealed');
+  }
+  function revealHero() {
+    heroContent && heroContent.classList.add('revealed');
+    scrollArrow && scrollArrow.classList.add('revealed');
+  }
+
+  function playHero() {
+    hideHero();
+    vid.currentTime = 0;
+    heroFired = false;
+    vid.play().catch(() => { revealHero(); });
+  }
+
+  let heroFired = false;
+
+  vid.addEventListener('timeupdate', () => {
+    if (!heroFired && vid.duration > 0 && (vid.duration - vid.currentTime) <= 3) {
+      heroFired = true; revealHero();
+    }
+  });
+  vid.addEventListener('ended', () => { if (!heroFired) { heroFired = true; revealHero(); } });
+  vid.addEventListener('error', () => { revealHero(); });
+
+  // Safety fallback
+  let heroSafety;
+  function armSafety() {
+    clearTimeout(heroSafety);
+    heroSafety = setTimeout(() => { if (!heroFired) { heroFired = true; revealHero(); } }, 10000);
+  }
+
+  // ── Scroll: replay when hero section comes back into view ──
+  const heroEl = document.querySelector('.hero');
+  const heroObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        heroFired = false;
+        playHero();
+        armSafety();
+      }
+    });
+  }, { threshold: 0.3 });
+  if (heroEl) heroObs.observe(heroEl);
+
+  // ── Click anywhere on hero replays it ──
+  heroEl && heroEl.addEventListener('click', () => { playHero(); armSafety(); });
+
+  // Initial play on load
+  playHero(); armSafety();
+})();
+
+// ════════════════════════════════════════════════════════
+// PRICING VIDEO (op.mp4)
+// — plays when scrolled into view, replays each time it re-enters view or is clicked
+// — tiers slide in 3s before video ends; reset & re-slide on each replay
+// ════════════════════════════════════════════════════════
+(function() {
+  const pricingSection = document.getElementById('pricing');
+  const pricingVid = document.getElementById('pricingVideo');
+  const pricingGrid = document.getElementById('pricingGrid');
+  if (!pricingVid || !pricingSection) return;
+
+  pricingVid.muted = true; pricingVid.loop = false;
+
+  function hideTiers() {
+    if (pricingGrid) {
+      pricingGrid.classList.remove('tier-revealed');
+    }
+  }
+  function revealTiers() {
+    if (pricingGrid) {
+      pricingGrid.classList.add('tier-revealed');
+    }
+  }
+
+  let pricingFired = false;
+  let safetyClear;
+
+  function playPricing() {
+    hideTiers();
+    pricingFired = false;
+    pricingVid.currentTime = 0;
+    pricingVid.play().catch(() => { revealTiers(); });
+    clearTimeout(safetyClear);
+    safetyClear = setTimeout(() => { if (!pricingFired) { pricingFired = true; revealTiers(); } }, 12000);
+  }
+
+  pricingVid.addEventListener('timeupdate', () => {
+    if (!pricingFired && pricingVid.duration > 0 && (pricingVid.duration - pricingVid.currentTime) <= 3) {
+      pricingFired = true; revealTiers();
+    }
+  });
+  pricingVid.addEventListener('ended', () => { if (!pricingFired) { pricingFired = true; revealTiers(); } });
+  pricingVid.addEventListener('error', () => { revealTiers(); });
+
+  // ── Scroll: replay each time pricing section enters view ──
+  const pricingObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        playPricing();
+      }
+    });
+  }, { threshold: 0.2 });
+  pricingObs.observe(pricingSection);
+
+  // ── Click on section BACKGROUND only (not tier cards) replays it ──
+  pricingSection.addEventListener('click', (e) => {
+    // Don't replay if clicking inside the actual pricing grid content
+    if (e.target.closest('#pricingGrid') || e.target.closest('.pricing-content')) return;
+    playPricing();
+  });
+})();
+</script>
+
+
+</body></html>
