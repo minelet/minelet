@@ -492,7 +492,8 @@ nav {
   .stat-n { font-size: 1.4rem; white-space: normal; }
   .stat-l { font-size: 0.6rem; white-space: normal; word-break: break-word; }
 
-  .trust-bar { padding: 1.1rem 1.5rem; gap: 1rem; justify-content: flex-start; }
+  .trust-bar { display: none; }
+  .stats-bar { display: none; }
   .trust-item { font-size: 0.67rem; }
 
   .pricing-content {
@@ -502,6 +503,8 @@ nav {
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+    z-index: 10;
   }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 0.25rem; margin-bottom: 0.55rem; padding: 0 0.7rem; }
   .sec-note { display: none; }
