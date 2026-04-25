@@ -495,7 +495,14 @@ nav {
   .trust-bar { padding: 1.1rem 1.5rem; gap: 1rem; justify-content: flex-start; }
   .trust-item { font-size: 0.67rem; }
 
-  .pricing-content { padding: 0 0 0.8rem; margin-top: auto; }
+  .pricing-content {
+    padding: 0 0 0.8rem;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 0.25rem; margin-bottom: 0.55rem; padding: 0 0.7rem; }
   .sec-note { display: none; }
   .sec-title { font-size: 1.1rem !important; line-height: 1.1; }
