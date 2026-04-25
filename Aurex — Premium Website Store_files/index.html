@@ -495,37 +495,41 @@ nav {
   .trust-bar { padding: 1.1rem 1.5rem; gap: 1rem; justify-content: flex-start; }
   .trust-item { font-size: 0.67rem; }
 
-  .pricing-content { padding: 0.8rem 0.8rem 1rem; }
-  .sec-head { flex-direction: column; align-items: flex-start; gap: 0.3rem; margin-bottom: 0.7rem; }
-  .sec-note { text-align: left; max-width: 100%; font-size: 0.7rem; }
-  .sec-title { font-size: clamp(1.2rem, 4.5vw, 1.6rem) !important; }
-  .sec-eyebrow { font-size: 0.55rem; margin-bottom: 0.3rem; }
+  .pricing-content { padding: 0.6rem 0.7rem 0.8rem; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 0.25rem; margin-bottom: 0.55rem; }
+  .sec-note { display: none; }
+  .sec-title { font-size: 1.1rem !important; line-height: 1.1; }
+  .sec-eyebrow { font-size: 0.52rem; margin-bottom: 0.25rem; }
   .pricing-grid { grid-template-columns: 1fr 1fr; gap: 0; }
-  .tier { border-right: 1px solid var(--border) !important; border-bottom: 1px solid var(--border) !important; padding: 0.65rem 0.6rem !important; }
+  .tier { border-right: 1px solid var(--border) !important; border-bottom: 1px solid var(--border) !important; padding: 0.5rem 0.55rem !important; }
   .tier:nth-child(2n) { border-right: none !important; }
   .tier:nth-child(3), .tier:nth-child(4) { border-bottom: none !important; }
-  .tier-elite { padding: 0.65rem 0.6rem !important; }
-  .t-tag { font-size: 0.48rem; margin-bottom: 0.18rem; letter-spacing: 0.08em; }
-  .t-name { font-size: 0.8rem; margin-bottom: 0.08rem; }
-  .t-line { font-size: 0.55rem; margin-bottom: 0.3rem; }
-  .t-price { margin-bottom: 0.3rem; }
-  .t-cur { font-size: 0.6rem; }
-  .t-amt { font-size: 1.3rem !important; line-height: 1; }
-  .t-per { font-size: 0.5rem; }
-  .t-div { margin: 0.3rem 0; }
-  .t-feats { margin-bottom: 0.5rem; }
-  .t-feats li { font-size: 0.55rem; padding: 0.08rem 0; }
-  .t-btn { font-size: 0.52rem; padding: 0.4rem 0.55rem; border-radius: 14px; }
-  /* Video takes natural 16:9 height at mobile width, tiers sit below */
+  .tier-elite { padding: 0.5rem 0.55rem !important; }
+  .t-tag { font-size: 0.46rem; margin-bottom: 0.12rem; letter-spacing: 0.07em; }
+  .t-name { font-size: 0.75rem; margin-bottom: 0.05rem; }
+  .t-line { font-size: 0.52rem; margin-bottom: 0.22rem; }
+  .t-price { margin-bottom: 0.22rem; }
+  .t-cur { font-size: 0.55rem; }
+  .t-amt { font-size: 1.15rem !important; line-height: 1; }
+  .t-per { font-size: 0.46rem; }
+  .t-div { margin: 0.22rem 0; }
+  .t-feats { margin-bottom: 0.4rem; }
+  .t-feats li { font-size: 0.52rem; padding: 0.06rem 0; }
+  .t-btn { font-size: 0.5rem; padding: 0.38rem 0.5rem; border-radius: 12px; }
+
+  /* Pricing section: full screen, video fills top, tiers sit at bottom */
   #pricing {
     min-height: 100svh;
-    justify-content: flex-end;
+    height: 100svh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
   }
+  /* Video: cover so no black bars, camera on car center */
   #pricing .vbg video {
-    object-fit: contain;
-    object-position: top center;
+    object-fit: cover;
+    object-position: center 40%;
   }
 
   #apps { grid-template-columns: 1fr; min-height: auto; }
@@ -555,10 +559,10 @@ nav {
   .stat-n { font-size: 1.25rem; }
   .stat-l { font-size: 0.58rem; letter-spacing: 0.06em; }
   .trust-item { font-size: 0.62rem; }
-  .pricing-content { padding: 0.6rem 0.7rem 0.8rem; }
-  .t-amt { font-size: 1.15rem !important; }
-  .t-feats li { font-size: 0.52rem; }
-  .t-btn { font-size: 0.48rem; padding: 0.35rem 0.45rem; }
+  .pricing-content { padding: 0.5rem 0.6rem 0.7rem; }
+  .t-amt { font-size: 1rem !important; }
+  .t-feats li { font-size: 0.5rem; }
+  .t-btn { font-size: 0.46rem; padding: 0.32rem 0.42rem; }
   .apps-l { padding: 3rem 1.2rem; }
   .apps-title { font-size: clamp(2rem, 10vw, 3rem); line-height: 1.05; }
   .apps-r { padding: 2.5rem 1.2rem; }
