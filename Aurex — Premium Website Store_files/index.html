@@ -486,14 +486,13 @@ nav {
   .scroll-arrow { display: none; }
 
   /* stats always horizontal */
-  .stats-bar { flex-wrap: nowrap; }
   .stat-item { flex: 1 1 0; padding: 0.85rem 0.6rem; }
   .stat-item:nth-child(5) { flex: 1 1 0; border-right: none; }
   .stat-n { font-size: 1.4rem; white-space: normal; }
   .stat-l { font-size: 0.6rem; white-space: normal; word-break: break-word; }
 
-  .trust-bar { display: none; }
-  .stats-bar { display: none; }
+  .trust-bar { display: none !important; }
+  .stats-bar { display: none !important; }
   .trust-item { font-size: 0.67rem; }
 
   .pricing-content {
@@ -531,14 +530,16 @@ nav {
 
   /* Pricing section: full screen, video fills top, tiers sit at bottom */
   #pricing {
-    min-height: 100svh;
-    height: 100svh;
+    min-height: 160svh;
+    height: 160svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
+    padding-bottom: 80px;
+    border-bottom: 120px solid #000;
   }
-  /* Video: cover so no black bars, camera on car center */
+  /* Video: untouched */
   #pricing .vbg video {
     object-fit: cover;
     object-position: center 40%;
@@ -589,9 +590,8 @@ nav {
 @media (max-width: 360px) {
   .hero h1 { font-size: clamp(1.5rem, 9vw, 2rem); line-height: 1.16; }
   .apps-grid { grid-template-columns: 1fr; }
-  .stats-bar { flex-wrap: nowrap; overflow-x: auto; }
-  .stat-item { flex: 0 0 auto; min-width: 80px; border-right: none; padding: 0.7rem 0.5rem; }
-  .stat-n { font-size: 1.15rem; }
+  .stats-bar { display: none !important; }
+  .trust-bar { display: none !important; }
 }
 </style>
 </head>
